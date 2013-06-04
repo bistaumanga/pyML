@@ -1,7 +1,7 @@
 import numpy as np
 import math
 from Activation import sigmoid
-
+from optim import *
 
 ##########################################################################
 ################### ANN Class ############################################
@@ -94,7 +94,7 @@ class ANN:
 ################## BackProp Cost Function ##################################
 
 
-def bpCost(data, net, regLambda):
+def bpCost(data, net, regLambda, Wt):
 
 	# convert y to matrix if number of classes is grater than 2
 	if data.K > 2:
@@ -104,6 +104,7 @@ def bpCost(data, net, regLambda):
 	else:
 		y = data.y
 
+	net.W = Wt
 	W = net.rollWt()
 
 	# initialization activation units, delta terms and induced vector field
@@ -159,7 +160,7 @@ def bpCost(data, net, regLambda):
 
 	#sum up regularized and non rgularized cost func terms
 	J = - 1.0 / data.m * J_nonReg + regLambda / (2.0 * data.m) * J_reg
-	return J, D_unrolled
+	return J, -D_unrolled
 
 
 ############################################################################
@@ -167,17 +168,11 @@ def bpCost(data, net, regLambda):
 
 def train(data, net, epochs = 25000, regLambda = 0.0):
 
-	J = []
-
-	for k in range(epochs):
-		# minimizaing cost function using gradient descent
-		j, D_unrolled = bpCost(data, net, regLambda)
-		J.append(j)
-		net.W += 0.8 * D_unrolled
+	from functools import partial
+	cost = partial(bpCost, data, net, regLambda)
+	J, Wt = gradDesc(cost, net.W, 1000)
+	net.W = Wt
 	return J
-
-	########################################################################
-	## class for training., lr, momentum and adv optimization
 
 
 ############################################################################

@@ -40,7 +40,7 @@ arch1 = [3, 4, 1]
 n1 = ANN(arch1, ActSig)
 #n1.displaySynpWt()
 
-J1 = train(d2, n2, epochs = 500, regLambda = 0.003)
+J1 = train(d1, n1, epochs = 500, regLambda = 0.003)
 plt.plot(J1)
 plt.show()
-print 'Accuracy is :' , test(d2, n2), '%'
+print 'Accuracy is :' , test(d1, n1), '%'
