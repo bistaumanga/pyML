@@ -1,4 +1,5 @@
 from pyBPN import *
+from optim import *
 import matplotlib.pyplot as plt
 from Activation import sigmoid
 import numpy as np

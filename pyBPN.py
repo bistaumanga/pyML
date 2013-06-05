@@ -1,7 +1,6 @@
 import numpy as np
 import math
 from Activation import sigmoid
-from optim import *
 
 ##########################################################################
 ################### ANN Class ############################################
