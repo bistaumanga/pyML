@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from Activation import sigmoid
 import numpy as np
 from loadData import Data
-	
+
 
 pat2 = [[[0, 0, 0], [0]],
 	[[0, 0, 1], [1]],
@@ -40,7 +40,14 @@ arch1 = [3, 4, 1]
 n1 = ANN(arch1, ActSig)
 #n1.displaySynpWt()
 
-J1 = train(d1, n1, epochs = 500, regLambda = 0.003)
-plt.plot(J1)
+##########################################################
+########## Training With Gradient DescentPortion #########
+from functools import partial
+cost = partial(n1.bpCost, data = d1, regLambda = 0.003)
+J, Wt = gradDesc(cost, init_x = n1.W, maxEpochs = 500, lr = 0.8)
+n1.W = Wt
+##########################################################
+
+plt.plot(J)
 plt.show()
-print 'Accuracy is :' , test(d1, n1), '%'
+print 'Accuracy is :' , n1.test(d1), '%'

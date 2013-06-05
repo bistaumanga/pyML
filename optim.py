@@ -1,9 +1,10 @@
-
-def gradDesc(cost, init_Wt, maxEpochs = 10000, lr = 0.8, mom = 0.5):
-	J = []
-	Wt = init_Wt
+def gradDesc(J, init_x, maxEpochs = 10000, lr = 0.8):
+	''' Optimization by Gradient Descent '''
+	
+	J_val = []
+	Wt = init_x
 	for i in range(maxEpochs):
-		j, D = cost(Wt)
+		j, D = J()
 		Wt -= lr * D
-		J.append(j)
-	return J, Wt
+		J_val.append(j)
+	return J_val, Wt
