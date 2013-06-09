@@ -35,5 +35,10 @@ class Data:
 		self.X = np.vstack((np.ones((1, self.m)), self.X))
 		self.n += 1
 
+	def normalize(self):
+		mu = np.mean(self.X, axis = 1)
+		sigma = np.std(self.X, axis = 1)
+		self.X = (self.X - mu)/ sigma
+
 	def getData(self):
 		return X, y
